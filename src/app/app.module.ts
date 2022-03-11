@@ -1,18 +1,32 @@
-import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { ElectronService, NgxElectronModule } from 'ngx-electron';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { PirateService } from './pirate.service';
+import { PirateLocalService } from './pirate-local.service';
+
+import { APP_BASE_HREF } from '@angular/common';
+
+const pirateFactory = (http: HttpClient, electron: ElectronService) => {
+  return !environment.desktop
+    ? new PirateService(http)
+    : new PirateLocalService(electron);
+};
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule, NgxElectronModule],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+    {
+      provide: PirateService,
+      useFactory: pirateFactory,
+      deps: [HttpClient, ElectronService],
+    },
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

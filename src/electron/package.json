@@ -1,0 +1,12 @@
+{
+  "name": "ng-bureau",
+  "description": "Angular Electron Sample",
+  "version": "0.0.0",
+  "author": {
+    "name": "Doutoum"
+  },
+  "main": "main.js",
+  "dependencies": {
+    "electron-log": "4.3.1"
+  }
+}
