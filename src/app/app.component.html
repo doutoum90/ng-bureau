@@ -1,14 +1,12 @@
 <div style="text-align: center">
-  <h1>Take Screenshots data: {{ data }}</h1>
+  <h1>Take Screenshots </h1>
 
-  <!-- <button (click)="takeScreenshot()">Take it!</button>
+  <button (click)="takeScreenshot()">Take it!</button>
   <button (click)="displaySources()">Sources</button>
-  <button (click)="playPingPong()">playPingPong</button>
-  <button (click)="beep()">Beep</button> -->
 </div>
 <ul>
-  <li *ngFor="let source of sources">
-    <a (click)="selectSource(source)">
+  <li *ngFor="let source of sources" (click)="selectSource(source)" style="cursor: pointer">
+    <a>
       {{ source.name }}
     </a>
   </li>

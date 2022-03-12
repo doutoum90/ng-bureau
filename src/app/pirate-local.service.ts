@@ -3,8 +3,7 @@ import { ElectronService } from 'ngx-electron';
 
 @Injectable()
 export class PirateLocalService {
-
-  constructor(private electronService: ElectronService) { }
+  constructor(private electronService: ElectronService) {}
 
   getPirates(): Promise<string[]> {
     return this.electronService.ipcRenderer.invoke('getPirates');
@@ -13,5 +12,4 @@ export class PirateLocalService {
   selectPirate(name: string) {
     this.electronService.ipcRenderer.sendSync('selectPirate', name);
   }
-  
 }

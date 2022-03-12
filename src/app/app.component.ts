@@ -9,33 +9,25 @@ import { ElectronService } from 'ngx-electron';
 export class AppComponent {
   title = 'electron-app';
 
-  sources: any[] = [
-    { id: 1, name: 'Name' },
-    { id: 2, name: 'Name Electron' },
-  ];
+  sources: any[] = [];
   selectedSource: any;
-  videostream: any;
   @ViewChild('videoElement', { static: true }) videoElement: any;
   video: any;
-  data: any;
+  pirates: any;
 
   constructor(private readonly _electronService: ElectronService) {}
 
-  ngOnInit() {
-    // this.data = await this._electronService.ipcRenderer.invoke('getPirates');
+  async ngOnInit() {
+    this.pirates = await this._electronService.ipcRenderer.invoke('getPirates');
 
     this.video = this.videoElement.nativeElement;
   }
 
   displaySources() {
     if (this._electronService.isElectronApp) {
-      console.log('Mode electron');
-      console.log('Electron ipcRenderer', this._electronService.ipcRenderer);
-      console.log('NodeJS childProcess', this._electronService.clipboard);
-      this._electronService.remote.desktopCapturer
-        ?.getSources({ types: ['window', 'screen'] })
+      this._electronService.desktopCapturer
+        .getSources({ types: ['window', 'screen'] })
         .then(async (sources) => {
-          console.log(sources);
           this.sources = sources;
           if (this.sources.length > 0) {
             this.selectedSource = this.sources[0];
@@ -49,7 +41,6 @@ export class AppComponent {
   }
 
   takeScreenshot() {
-    console.log(this.selectedSource);
     let nav = <any>navigator;
 
     nav.webkitGetUserMedia(
@@ -75,14 +66,5 @@ export class AppComponent {
       }
     );
     return;
-  }
-
-  public playPingPong() {
-    let pong: string = this._electronService.ipcRenderer.sendSync('ping');
-    console.log(pong);
-  }
-
-  public beep() {
-    this._electronService.shell.beep();
   }
 }

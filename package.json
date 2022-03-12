@@ -7,6 +7,8 @@
     "start:dev": "electron dist/ng-bureau/shell.js",
     "start:prod": "electron dist/ng-bureau/main.js",
     "build": "ng build",
+    "build:hot:angular": "ng build -c=electron --delete-output-path=false --watch",
+    "build:hot:electron": "webpack --config webpack.electron.dev.config.js --watch",
     "build:dev": "concurrently \"ng build -c=electron --delete-output-path=false --watch\" \"webpack --config webpack.electron.dev.config.js --watch\"",
     "build:prod": "ng build -c=electron --optimization --outputHashing=all --sourceMap=false --namedChunks=false --extract-licenses --vendorChunk=false --build-optimizer && webpack --config webpack.electron.prod.config.js",
     "test": "ng test",

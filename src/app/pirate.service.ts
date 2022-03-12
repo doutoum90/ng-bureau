@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PirateService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPirates(): Promise<string[]> {
     return this.http.get<string[]>('assets/pirates.json').toPromise();
@@ -13,5 +12,4 @@ export class PirateService {
   selectPirate(name: string) {
     alert('You selected: ' + name);
   }
-
 }

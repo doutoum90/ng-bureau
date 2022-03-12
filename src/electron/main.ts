@@ -28,6 +28,10 @@ ipcMain.handle('getPirates', () => {
   return JSON.parse(result.toString());
 });
 
+ipcMain.handle('data', () => {
+  return 'Hello World'
+});
+
 // Angular -> Electron
 ipcMain.on(
   'selectPirate',
